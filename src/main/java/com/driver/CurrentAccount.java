@@ -2,20 +2,15 @@ package com.driver;
 
 public class CurrentAccount extends BankAccount{
     String tradeLicenseId; //consists of Uppercase English characters only
-
+    private static int minBalance = 5000;
     public CurrentAccount(String name, double balance, String tradeLicenseId) throws Exception {
         // minimum balance is 5000 by default. If balance is less than 5000, throw "Insufficient Balance" exception
+        super(name, balance, minBalance);
+        if (balance < minBalance)
+            throw new Exception("Insufficient Balance");
+        this.tradeLicenseId = tradeLicenseId;
 
-          super(name,balance,5000);
-
-         // validateLicenseId();
-
-              if(balance<5000){
-                  throw  new Exception("Insufficient Balance");
-              }
-
-           this.tradeLicenseId = tradeLicenseId;
-
+        //validateLicenseId();
     }
 
     public void validateLicenseId() throws Exception {
@@ -23,7 +18,6 @@ public class CurrentAccount extends BankAccount{
         // If the license Id is valid, do nothing
         // If the characters of the license Id can be rearranged to create any valid license Id
         // If it is not possible, throw "Valid License can not be generated" Exception
-
         int freq[] = new int[26];
         //abbcacca
         for (int i = 0; i < tradeLicenseId.length(); i++) {
@@ -68,14 +62,6 @@ public class CurrentAccount extends BankAccount{
             stringbuilder.append(charArray[i]);
         }
         this.tradeLicenseId = stringbuilder.toString();
-
     }
 
-    public String getTradeLicenseId() {
-        return tradeLicenseId;
-    }
-
-    public void setTradeLicenseId(String tradeLicenseId) {
-        this.tradeLicenseId = tradeLicenseId;
-    }
 }
